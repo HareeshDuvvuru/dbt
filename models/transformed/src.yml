@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: snowflake_model
+    database: SNOWFLAKE_SAMPLE_DATA
+    schema: TPCH_SF1
+    tables:
+      - name: customer
+        description: contains the customer's data
+      - name: LINEITEM
+        description: contains the customer's data
+        columns:
+          - name: L_ORDERKEY
+            tests:
+              - not_null

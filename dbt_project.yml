@@ -36,3 +36,7 @@ models:
     # Applies to all files under models/example/
     example:
       materialized: view
+  elementary:
+    ## elementary models will be created in the schema '<your_schema>_elementary'
+    +database: hareesh_dbt
+    +schema: "elementary"

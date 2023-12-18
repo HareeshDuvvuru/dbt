@@ -1,0 +1,8 @@
+version: 2
+models:
+  - name: first_model
+  - name: second_model
+    columns:
+      - name: L_ORDERKEY
+        tests:
+          - not_null
