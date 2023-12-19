@@ -1,12 +1,24 @@
-{% macro model_generation (table,record_id=none) %}
-
-    select 
-        *,
+{% macro model_generation (source_name,table,record_id=none) %}
+ 
+    {{log ("-------------")}}
+    {{log (target.name)}}
+    {{log ("-------------")}}
+    select
+        {{
+            dbt_utils.star(
+                source(source_name,table), except=["ID"], quote_identifiers=False
+            )
+        }},
+        {%- if target.name == 'dev' -%}
         concat('DBT_','{{ record_id }}') as src_name,
+        {%- elif target.name == 'default' -%}
+        concat('DBT_') as src_name,
+        {%- endif -%}
         'Processed' as prc_text,
         current_timestamp() as create_dt,
         current_timestamp() as update_dt
-    from {{source('snowflake_model',table)}}
+
+    from {{source(source_name,table)}}
     {% if is_incremental() %}
 
             -- this filter will only be applied on an incremental run

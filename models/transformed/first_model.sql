@@ -8,7 +8,7 @@
 
     
 {{
-    model_generation ('customer','CLM')
+    model_generation ('source_1', 'customer', 'CLM')
 }}
 
 
