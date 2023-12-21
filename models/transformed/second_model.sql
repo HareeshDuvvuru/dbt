@@ -8,7 +8,7 @@
 
     
 {{
-    model_generation ('source_2', 'call_center', 'AM')
+    model_generation ('TPCDS_1', 'call_center', 'AM')
 }}
 
 

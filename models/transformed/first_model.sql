@@ -8,7 +8,7 @@
 
     
 {{
-    model_generation ('source_1', 'customer', 'CLM')
+    model_generation ('TPCDS_1', 'customer', 'CLM')
 }}
 
 

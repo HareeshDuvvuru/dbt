@@ -1,16 +1,19 @@
 {% macro model_generation (source_name,table,record_id=none) %}
- 
+
+
+    {{log ("--------enter-----")}}
     {{log ("-------------")}}
     {{log (target.name)}}
     {{log ("-------------")}}
     select
         {{
             dbt_utils.star(
-                source(source_name,table), except=["ID"], quote_identifiers=False
+                source(source_name, table), except=["ID"], quote_identifiers=False
             )
         }},
         {%- if target.name == 'dev' -%}
-        concat('DBT_','{{ record_id }}') as src_name,
+        concat('DBT_','{{ record_id }}') as src_name,----instead of record id we can also pass the column name to concate the value of that column to the DBT_ 
+                                                    ----eg: select concat('c_custey',c_custkey) as new_col from SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.CUSTOMER;
         {%- elif target.name == 'default' -%}
         concat('DBT_') as src_name,
         {%- endif -%}
@@ -18,7 +21,9 @@
         current_timestamp() as create_dt,
         current_timestamp() as update_dt
 
-    from {{source(source_name,table)}}
+    from {{source( source_name, table )}}
+ 
+    
     {% if is_incremental() %}
 
             -- this filter will only be applied on an incremental run

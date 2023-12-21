@@ -1,21 +1,12 @@
 version: 2
 
 sources:
-  - name: source_1
+  - name: TPCDS_1
     database: SNOWFLAKE_SAMPLE_DATA
-    schema: TPCDS_SF100TCL
-    tables:
-      - name: customer
-        description: contains the customer's data
-      - name: call_center
-        description: contains the customer's data
-        columns:
-          - name: CC_CALL_CENTER_ID
-            tests:
-              - not_null
-  - name: source_2
-    database: SNOWFLAKE_SAMPLE_DATA
-    schema: TPCDS_SF10TCL
+    schema: |
+      {%- if target.name == "dev" -%} TPCDS_SF10TCL
+      {%- elif target.name == "default" -%} TPCDS_SF100TCL
+      {%- endif -%}
     tables:
       - name: customer
         description: contains the customer's data
