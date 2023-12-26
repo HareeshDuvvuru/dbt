@@ -11,11 +11,11 @@
                 source(source_name, table), except=["ID"], quote_identifiers=False
             )
         }},
-        {%- if target.name == 'dev' -%}
+        {%- if target.name == 'default' -%}
         concat('DBT_','{{ record_id }}') as src_name,----instead of record id we can also pass the column name to concate the value of that column to the DBT_ 
                                                     ----eg: select concat('c_custey',c_custkey) as new_col from SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.CUSTOMER;
-        {%- elif target.name == 'default' -%}
-        concat('DBT_') as src_name,
+        {%- elif target.name == 'prod' -%}
+        concat('DBT_', 'prod') as src_name,
         {%- endif -%}
         'Processed' as prc_text,
         current_timestamp() as create_dt,
@@ -34,6 +34,18 @@
 
 
 {% endmacro %}
+
+
+-----Audit table updation post the model run is completed
+-- create table HAREESH_DBT.AUDIT_LOG.PIPL_STAT(
+-- record INT AUTOINCREMENT,
+-- name varchar(257),
+-- Status varchar(257),
+-- Create_DT timestamp,
+-- Update_DT timestamp
+-- );
+
+
 
 {% macro audit_log_insert(model) %}
     {% set query %}
