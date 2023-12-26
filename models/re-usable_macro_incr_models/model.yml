@@ -1,0 +1,8 @@
+version: 2
+models:
+  - name: first_model
+  - name: second_model
+    columns:
+      - name: CC_CALL_CENTER_ID
+        tests:
+          - not_null
