@@ -29,7 +29,16 @@ GRANT ROLE transform to USER dbt;
 
 -- Create our database and schemas
 CREATE DATABASE IF NOT EXISTS AIRBNB;
+CREATE DATABASE IF NOT EXISTS HAREESH_DBT;
 CREATE SCHEMA IF NOT EXISTS AIRBNB.RAW;
+CREATE SCHEMA IF NOT EXISTS HAREESH_DBT.AUDIT_LOG;
+CREATE TABLE IF NOT EXISTS HAREESH_DBT.AUDIT_LOG.PIPL_STAT(
+record INT AUTOINCREMENT,
+name varchar(257),
+Status varchar(257),
+Create_DT timestamp,
+Update_DT timestamp
+);
 
 -- Set up permissions to role `transform`
 GRANT ALL ON WAREHOUSE COMPUTE_WH TO ROLE transform; 
@@ -40,8 +49,12 @@ GRANT ALL ON ALL TABLES IN SCHEMA AIRBNB.RAW to ROLE transform;
 GRANT ALL ON FUTURE TABLES IN SCHEMA AIRBNB.RAW to ROLE transform;
 
 
-
-
+GRANT ALL ON WAREHOUSE COMPUTE_WH TO ROLE transform; 
+GRANT ALL ON DATABASE HAREESH_DBT to ROLE transform;
+GRANT ALL ON ALL SCHEMAS IN DATABASE HAREESH_DBT to ROLE transform;
+GRANT ALL ON FUTURE SCHEMAS IN DATABASE HAREESH_DBT to ROLE transform;
+GRANT ALL ON ALL TABLES IN SCHEMA HAREESH_DBT.AUDIT_LOG to ROLE transform;
+GRANT ALL ON FUTURE TABLES IN SCHEMA HAREESH_DBT.AUDIT_LOG to ROLE transform;
 ```
 
 ## Snowflake data import
@@ -106,3 +119,6 @@ COPY INTO raw_hosts (id, name, is_superhost, created_at, updated_at)
                     FIELD_OPTIONALLY_ENCLOSED_BY = '"');
 
 ```
+
+**For configuring the credentials in github please refer the below image**
+![image](https://github.com/HareeshDuvvuru/dbt/assets/47188606/d5d25a8c-cb88-4510-94cb-95724f21a9d8)
