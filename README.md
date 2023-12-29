@@ -1,4 +1,4 @@
-## before we start executing the models please execute the below sequesls for creating the sources, rols warehouses and grants.
+## before we start executing the models please execute the below sqls for creating the sources, rols warehouses and grants.
 # Introduction and Environment Setup
 
 ## Snowflake user creation
