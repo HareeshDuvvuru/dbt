@@ -4,7 +4,7 @@ sources:
   - name: TPCDS_1
     database: SNOWFLAKE_SAMPLE_DATA
     schema: |
-      {%- if target.name == "default" -%} TPCDS_SF10TCL
+      {%- if target.name == "dev" -%} TPCDS_SF10TCL
       {%- elif target.name == "prod" -%} TPCDS_SF100TCL
       {%- endif -%}
     tables:
